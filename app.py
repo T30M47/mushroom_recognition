@@ -133,7 +133,7 @@ def lime_explanation(image):
         model_wrapper.predict_proba,
         top_labels=1,
         hide_color=0,
-        num_samples=400,
+        num_samples=450,
         segmentation_fn=custom_segmentation
     )
 
