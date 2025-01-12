@@ -5,7 +5,6 @@ from PIL import Image
 import gradio as gr
 import gdown
 import os
-import shap
 import matplotlib.pyplot as plt
 from lime import lime_image
 from skimage.segmentation import mark_boundaries
