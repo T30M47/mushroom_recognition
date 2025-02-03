@@ -214,40 +214,32 @@ with gr.Blocks() as iface:
 
     with gr.Row():
         with gr.Column():
-            input_image = gr.Image(type="pil", label="Prenesite sliku")
+            input_image = gr.Image(sources="webcam", type="pil", label="Snimite sliku")  # Use camera
 
             with gr.Row():
                 predict_button = gr.Button("Pokreni detekciju")
-                lime_button = gr.Button("Generiraj LIME objašnjenje", visible=False)
             with gr.Row():
-                clear_button = gr.Button("Očisti unos")  # Clear button
+                clear_button = gr.Button("Očisti unos")
 
         with gr.Column():
             pred_image = gr.Image(type="pil", label="Prepoznata gljiva")
             confidence_text = gr.Textbox(label="Postoci pouzdanosti:")
-            lime_image = gr.Image(type="pil", label="LIME Objašnjenje")
 
     # Shared state for prediction result
     prediction_state = gr.State(value=None)
 
-    # Bind the "Očisti unos" button to the clear_inputs function
+    # Clear button functionality
     clear_button.click(
-        fn=clear_inputs,
+        fn=lambda: (None, None, None),
         inputs=[],
-        outputs=[input_image, pred_image, confidence_text, lime_image, lime_button]
+        outputs=[input_image, pred_image, confidence_text]
     )
 
-    # Bind buttons to actions
+    # Prediction button
     predict_button.click(
-        fn=lambda image: (*detect_and_classify(image), image, gr.update(visible=True)),
+        fn=lambda image: (*detect_and_classify(image), image),
         inputs=input_image,
-        outputs=[pred_image, confidence_text, prediction_state, lime_button],
-    )
-
-    lime_button.click(
-        fn=lambda state_image: lime_explanation(state_image) if state_image is not None else None,
-        inputs=prediction_state,
-        outputs=[lime_image],
+        outputs=[pred_image, confidence_text, prediction_state],
     )
 
 # Launch Gradio app
