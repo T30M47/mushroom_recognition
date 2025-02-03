@@ -11,7 +11,7 @@ from skimage.segmentation import mark_boundaries
 from skimage.segmentation import slic
 
 # Define the Google Drive file IDs for the models
-TFLITE_MODEL_URL = 'https://drive.google.com/uc?id=1vyAleBTqYR6sXRUxV_2q7IgeHAwf2p4h'  # Replace with your actual file ID for TFLite model
+TFLITE_MODEL_URL = 'https://drive.google.com/uc?id=1zNGk3vC0cTunkgfmrjK9-F1wrr0oIB42'  # Replace with your actual file ID for TFLite model
 
 if not os.path.exists('inception_model.tflite'):
     gdown.download(TFLITE_MODEL_URL, 'inception_model.tflite', quiet=False)
